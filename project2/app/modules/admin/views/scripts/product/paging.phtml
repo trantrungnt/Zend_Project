@@ -1,0 +1,43 @@
+<?php 
+$link = $this->baseUrl().'/admin/product/index/page/';
+$urlimg =  $this->baseUrl().'/app/templates/frontend/images/';
+?>
+	<div class="paging">                     
+            <!-- First page link -->
+            <?php if (isset($this->previous)): ?>
+                  <a class="first-link first-page" href="<?php echo $link.'1'?>" ><?php echo '<<'; ?></a> 
+            <?php else: ?>
+                    <span class="curent_span first-page"><?php echo '<<'; ?></span>
+            <?php endif; ?>
+       
+            <!-- Previous page link -->
+       
+            <?php if (isset($this->previous)): ?>
+                  <a class="first-link pre-page" href="<?php echo $link.$this->previous;?>">
+                  <?php echo '<'; ?>
+                  </a>
+            <?php else: ?>
+                <span class="curent_span pre-page"><?php echo '<'; ?></span>
+            <?php endif; ?>
+            <!-- Numbered page links -->
+            <?php foreach ($this->pagesInRange as $page): ?>
+                <?php if ($page != $this->current): ?>
+                    <a class="page-link" href="<?php echo $link.$page?>"><?php echo $page; ?></a>
+                <?php else: ?>
+                    <span class="current-page"><?php echo  $page; ?></span>
+                <?php endif; ?>
+            <?php endforeach; ?>
+            <!-- Next page link -->
+            <?php if (isset($this->next)): ?>
+                   <a class="first-link next-page" href="<?php echo $link.$this->next?>" ><?php echo '>'; ?></a>
+            <?php else: ?>
+                 <span class="curent_span next-page"><?php echo '>'; ?></span>
+            <?php endif; ?>
+            <!-- Last page link -->
+            <?php if (isset($this->next)): ?>
+                  <a class="first-link last-page" href="<?php echo $link.$this->last?>"><?php echo '>>'; ?></a>
+            <?php else: ?>
+                <span class="curent_span last-page"><?php echo '>>'; ?></span>
+            <?php endif; ?>        
+    </div>
+

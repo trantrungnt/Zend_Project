@@ -1,0 +1,103 @@
+﻿<?php
+	 $data = $this->rstopmenu;
+	 $submenu = $this->submenu; 
+     $url=$this->baseUrl().'/product/index?name=';
+	 $urldetail = $this->baseUrl().'/product/detail/id/';
+	 $email = $this->email;
+	 $catname = $this->catname;
+	 $subcatname = $this->subcatname;
+	 $urlcatname = $this->urlcatname;
+	 $products = $this->product;
+?>
+<script>
+	$(document).ready(function(){
+		$("ul.topmenu > li >a").each(function(){
+			var value_cat = $(this).text();
+			if(value_cat=='<?php echo $urlcatname;  ?>'){
+				$("ul.topmenu > li >a.active").removeClass('active');
+				$(this).addClass('active');
+			}
+		});
+	});
+	
+</script>
+<span style="display:block; width: 180px;float:left;position:absolute;left:600px;color:grey;"><?php echo date('r',time()); ?></span>
+<div class="search">
+	<form name="frmsearch" method="post" action="<?php echo $this->baseUrl(); ?>/search/">
+	<input id="search" type="text" name="keysearch" value="" class="ac_input" />
+	<button type="submit" title="search" class="bt-search">Search
+	</button>
+	</form>
+</div>
+<div class="banner"><img src="<?php echo $this->baseUrl()?>/app/templates/frontend/images/banner.png" /></div>
+<div class="block-topmenu">
+	<ul class="topmenu">
+		<li><a class="active" href="<?php echo $this->baseUrl()?>">Home</a></li>
+        <?php foreach($data as $item){ ?>
+        
+		<li><a href="<?php echo $url.$item['url']?>"><?php echo $item['cat_name'];?></a>
+			<ul class="submenu">
+				<?php
+					foreach($submenu as $row){  
+						if($row['cat_id']==$item['cat_id']){	
+				?>
+				<li><a href="<?php echo $url.$item['url'].'&subname='.$row['url']?>"><?php echo $row['subcat_name'] ?></a></li>
+				<?php } }?>	
+			</ul>
+		</li>
+		<?php } ?>
+		<!--<li><a href="<?php echo $this->baseUrl()?>"><?php echo 'contact us'; ?></a></li>-->
+	</ul>
+	<div class="account">
+		<?php if($email==''): ?><a style="display:block; margin:5px;" href="<?php echo $this->baseUrl().'/frontend/customer' ?>">Login</a><?php endif; ?>
+		<?php if($email!=''): ?><div style="font-size: 0.9em;text-transform:none;padding: 5px;color: #FFFFFF;;"><a href="#" >Hello&nbsp;<?php echo $email; ?></a>|<a href="<?php echo $this->baseUrl().'/frontend/customer/logout' ?>">Logout</a></div><?php endif; ?>	
+	</div>	
+	<div class="support">
+		<a class="link_support" href="#">Support Online</a>
+		<div class="popup_support" style="display: none;">
+			<div class="col_add_support_01">
+			<h4>Support 1</h4>
+			<p><label><img src="<?php echo $this->baseUrl().'/app/templates/frontend/images/tell.png' ?>"/></label> (+84)984033480</p>
+			<p>
+			<label><img width=25 height=25 src="<?php echo $this->baseUrl().'/app/templates/frontend/images/yahoo.jpeg' ?>"/></label>
+			<a rel="nofollow" href="ymsgr:sendIM?a_252513252000">G2P1101K1</a>
+			</p>
+			<p><label><img width=25 height=25 src="<?php echo $this->baseUrl().'/app/templates/frontend/images/email.jpeg' ?>"/></label><a>support1@g2p1101k.vn</a></p>
+			</div>
+			<div class="col_add_support_02 dist_login_02">
+			<h4>Support 2</h4>
+			<p><label><img src="<?php echo $this->baseUrl().'/app/templates/frontend/images/tell.png' ?>"/></label> (+84)1686555323</p>
+			<p>
+			<label><img width=25 height=25 src="<?php echo $this->baseUrl().'/app/templates/frontend/images/yahoo.jpeg' ?>"/></label>
+			<a rel="nofollow" href="ymsgr:sendIM?vuhai_4187">G2P1101K2</a>
+			</p>
+			<p><label><img width=25 height=25 src="<?php echo $this->baseUrl().'/app/templates/frontend/images/email.jpeg' ?>"/></label><a>support2@g2p1101k.vn</a></p>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+$(document).ready(function(){
+	$('.support').mouseover(function(){
+		$('.popup_support').css({'display': 'block'});
+	})
+	$('.support').mouseout(function(){
+		$('.popup_support').css({'display': 'none'});
+	})
+})
+</script>
+<div class="clr"></div>
+<div class="box-actions">
+	<?php if(Zend_Controller_Front::getInstance()->getRequest()->getActionName() == 'index' && Zend_Controller_Front::getInstance()->getRequest()->getControllerName() == 'index'): ?>
+		<div class="chidan"><a class="chidan1" href="<?php echo $this->baseUrl(); ?>">Home</a></div>
+	<?php endif; ?>
+	<?php if($catname): ?>
+	<div class="chidan">
+		<a class="chidan1" href="<?php echo $url.$catname; ?>"><?php echo  str_replace('-',' ',$catname); ?></a>
+		<a class="chidan2" href="<?php echo $url.$catname.'&subname='.$subcatname;?>"> <?php if($subcatname!=''){ echo '<span class="chidan-next">|</span>'.str_replace('-',' ',$subcatname);} ?></a>
+	</div>
+	<?php endif; ?>
+	<!--<div class="giohang"><a href="<?php echo $this->baseUrl().'/cart/'; ?>"><span>Giỏ hàng</span></a></div>-->
+	
+	
+</div>

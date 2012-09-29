@@ -1,0 +1,31 @@
+<?php $err = $this->error;
+	$data = $this->data;?>
+<div class="customer_form">
+	<div class="customer_register">
+		<div class="customer_register_title"><span>Create an account</span></div>
+		<div class="customer_register_content"><span>By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.</span></div>
+		<div class="customer_register_button">
+			<a href="<?php echo $this->baseUrl().'/frontend/customer/register' ?>">Create an account</a>
+		</div>
+	</div>
+	<form name="frmLogin" method="post" action="">
+	<div class="customer_login">
+		<div class="customer_login_title"><span>Login if you have an account</span></div>
+		<div class="err"><?php echo $err; ?></div>
+		<div class="customer_login_content">
+			<div class="customer_login_content_detail">
+				<label>Username</label>
+				<input type="text" name="username" value="<?php echo $data['username'] ?>" />
+			</div>
+			<div class="customer_login_content_detail">
+				<label>Password</label>
+				<input type="password" name="password" value="<?php echo $data['password'] ?>" />
+			</div>
+		</div>
+		<div class="customer_login_button">
+			<a href="#">Forget your password</a>
+			<input type="submit" name="submit" value="Login"/>
+		</div>
+	</div>
+	</form>
+</div>

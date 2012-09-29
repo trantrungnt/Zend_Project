@@ -1,0 +1,24 @@
+<?php $cus=$this->cus; ?>
+<form id="frmRegister" name="frmRegister" method="post" action="">
+  <table width="500" height="200" border="0">
+    <tr>
+      <td width="30%">Email</td>
+      <td width="70%"><input type="text" name="email" class="register" value="<?php echo $cus['cus_email'] ?>"/></br>
+	  <?php if($this->errce): ?>
+	  <label class="err"><?php echo $this->errce ?></label>
+	  <?php endif; ?></td>
+    </tr>
+    <tr>
+      <td>Password</td>
+      <td><input type="password" name="password" class="register" value="<?php echo $cus['cus_pass'] ?>" /></br><?php if($this->errcp): ?><label class="err"><?php echo $this->errcp ?></label><?php endif; ?></td>
+    </tr>
+    <tr>
+      <td>Confirm password </td>
+      <td><input type="password" name="cpass" class="register" /></br><?php if($this->errcpass): ?><label class="err"><?php echo $this->errcpass ?></label><?php endif; ?></td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td><input type="submit" name="Submit" value="Create" /></td>
+    </tr>
+  </table>
+</form>

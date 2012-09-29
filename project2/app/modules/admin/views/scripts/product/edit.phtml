@@ -1,0 +1,138 @@
+<?php 
+	$errsc       = $this->errsc;
+	$errpname    = $this->errpname;
+	$errprice    = $this->errprice;
+	$errquantity = $this->errquantity;
+	$errcolor    = $this->errcolor;
+	$errsize     = $this->errsize;
+	$errimg      = $this->errimg;
+	$errdes      = $this->errdes;
+	$subcat      = $this->subcat;
+	$product     = $this->product;
+	$colors      = $this->color;
+	$sizes       = $this->size;
+?>
+<script>
+	function DelImg(){
+		$("#oldimg").hide();
+		var newimg = '<input type="file" name="newimg" />';
+		newimg += '<input type="button" onclick="getOldImg()" value="get old img" />';
+		$("#newimg").append(newimg);
+		$("input[name='idelimg']").val("1");
+	}
+	
+	function getOldImg(){
+		$("#oldimg").show();
+		$("input[name='idelimg']").val("0");
+		$("#newimg").html('');
+	}
+</script>
+<div class="list-edit">
+	<form name="frmEditPro" method="post" enctype="multipart/form-data">
+		<div class="action">
+			<h2 class="title">Edit Product</h2>
+			<div class="save-reset">
+				<input class="button" type="submit" value="SAVE" />&nbsp;&nbsp;
+				<input class="button" type="reset" value="Reset" />
+			</div>
+		</div>
+		<div class="clr"></div>
+		<table width="100%" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td>Subcategory: </td>
+				<td>
+					<select name="subcatname">
+						<option value="-1"><?php echo 'choose subcategory'?></option>
+						<?php foreach($subcat as $subcatitem): ?>
+						<option value="<?php echo $subcatitem['subcat_id'] ?>" <?php if($product['subcat_id']==$subcatitem['subcat_id']): ?>selected="select"<?php endif; ?>><?php echo $subcatitem['subcat_name']; ?></option>
+						<?php endforeach; ?>
+					</select>
+					<?php if($errsc): ?>
+					<label class="err"><?php echo $errsc; ?></label>
+					<?php endif; ?>
+				</td>
+			</tr>
+			<tr>
+				<td>Product name: </td>
+				<td>
+					<input type="text" name="proname" value="<?php echo $product['pro_name']; ?>" />
+					<?php if($errpname): ?>
+					<label class="err"><?php echo $errpname; ?></label>
+					<?php endif; ?>
+				</td>
+			</tr>
+			<tr>
+				<td>Product price: </td>
+				<td>
+					<input type="text" name="proprice" value="<?php echo $product['pro_price']; ?>" />
+					<?php if($errprice): ?>
+					<label class="err"><?php echo $errprice; ?></label>
+					<?php endif; ?>
+				</td>
+			</tr>
+			<tr>
+				<td>Product image: </td>
+				<td>
+					<!--<input type="file" name="proimg" value="browser" />-->
+						<input type="hidden" value="0" name="idelimg" />
+						<div id="oldimg" class="">
+						<img id="editimg" src="<?php echo $this->baseUrl().$product['pro_img']; ?>" width="50" height="50"/>
+						<button class="button" onclick="DelImg()" type="button">delete</button>
+						
+						<?php if($errimg): ?>
+						<label class="err"><?php echo $errimg; ?></label>
+						<?php endif; ?>
+					</div>
+					<div id="newimg" class="">
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>Product quantity: </td>
+				<td>
+					<input type="text" name="proquantity" value="<?php echo $product['pro_quantity']; ?>" />
+					<?php if($errquantity): ?>
+					<label class="err"><?php echo $errquantity; ?></label>
+					<?php endif; ?>
+				</td>
+			</tr>
+			<tr>
+				<td>Product color: </td>
+				<td>
+					<select name="procolor">
+						<option value="-1">Choose color</option>
+						<?php foreach($colors as $color): ?>
+						<option value="<?php echo $color['col_id'] ?>" <?php if($product['col_id']==$color['col_id']): ?>selected="select"<?php endif; ?>><?php echo $color['col_name'] ?></option>
+						<?php endforeach; ?>
+					</select>
+					<?php if($errcolor): ?>
+					<label class="err"><?php echo $errcolor; ?></label>
+					<?php endif; ?>
+				</td>
+			</tr>
+			<tr>
+				<td>Product size: </td>
+				<td>
+					<select name="prosize">
+						<option value="-1">Choose size</option>
+						<?php foreach($sizes as $size): ?>
+						<option value="<?php echo $size['siz_id']; ?>" <?php if($product['siz_id']==$size['siz_id']): ?>selected="select"<?php endif; ?>><?php echo $size['siz_name']; ?></option>
+						<?php  endforeach; ?>
+					</select>
+					<?php if($errsize): ?>
+					<label class="err"><?php echo $errsize; ?></label>
+					<?php endif; ?>
+				</td>
+			</tr>
+			<tr>
+				<td valign="top">Description: </td>
+				<td>
+					<textarea id="txtSortDes" name="prodes" cols="60" rows="10" ><?php echo $product['pro_des']; ?></textarea>
+					<?php if($errdes): ?>
+					<label class="err"><?php echo $errdes; ?></label>
+					<?php endif; ?>
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>

@@ -1,0 +1,55 @@
+*{margin:0;padding:0;}
+a{text-decoration:none; color:#666;}
+body{
+	background:#e1e1e1 scroll repeat;
+}
+ul li{list-style:none;}
+.list-index table,
+.list-index table tr,
+.list-index table tr th, table tr td{border:1px solid #e1e1e1;border-collapse: collapse;}
+.list-index table tr th, table tr td {padding:10px}
+.err{color:red;display:block;margin:5px 0;}
+.button{border:none;background:#2DAEBF;border-radius:15px;text-transform: uppercase; font-size: 16px;padding: 3px 10px;color:#efefef;text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25);box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);}
+.clr{clear:both;}
+
+/*block list===========================================================================*/
+.list{width:960px;margin:0 auto;}
+.action{float:left;width:960px;margin-bottom:20px;}
+.title{float:left;text-transform:uppercase;font-size:16px;}
+.add-del, .save-reset{float:right;}
+/*end block list===========================================================================*/
+
+
+.wrapper{width:1000px; margin:0 auto;background:#fff;}
+.main-content{min-height:550px}
+.header{}
+.header .banner{border-radius:10px 10px 0 0;text-align:center;color:#4169E1;padding:10px 0;font-size:20px;text-shadow: -1px 0 #8F7, 0 1px #8F7, 1px 0 #8F7, 0 -1px #8F7;}
+
+.top-menu{float:left;background:#F5DEB3;width:100%;}
+.menu li{float:left;position:relative;margin:0 5px;}
+.menu li a{padding:5px 10px;display:block;float:left;}
+.menu li a:hover,.menu li a:active{color:#4169E1;}
+.submenu{display:none;position:absolute;top:30px;left:0;width:200px;background:#F5DEB3;}
+.menu li:hover .submenu{display:block;}
+
+
+.main-contain{min-height:550px;padding:20px 10px;}
+
+/* block category */
+.list-index{}
+
+.footer{text-align:center;text-shadow: -1px 0 #8F7, 0 1px #8F7, 1px 0 #8F7, 0 -1px #8F7;background:#F5DEB3;padding:10px 0;}
+
+/*login form*/
+.login-frm{width:200px;margin:200px auto;background:#d4d4d4;padding:20px;border-radius:8px; box-shadow:0 5px 10px #000;}
+.login-frm div{margin:5px 0;}
+
+/*paginator*/
+.paginator{float:left;width:100%;text-align:center;margin:10px 0;}
+.paging{}
+.paging a{}
+.current-page{padding:5px 10px;-moz-border-radius:12px;background:#3BA211;margin:0 5px;color:#fff;text-shadow: -1px -1px white;}
+.pre-page,.next-page,.page-link{padding:5px 10px;-moz-border-radius:12px;background:#3BA2C0;margin:0 5px;color:#fff;text-shadow: 1px 1px white;}
+.first-page,.last-page{padding:5px 8px;-moz-border-radius:14px;background:#3BA2C0;margin:0 5px;color:#fff;text-shadow: 1px 1px white;}
+
+

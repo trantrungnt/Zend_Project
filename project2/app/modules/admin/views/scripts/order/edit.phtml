@@ -1,0 +1,66 @@
+<?php 
+	$order     = $this->order;
+	$status    = array('pending','complete','processing','cancel');
+	$cus_type  = array('guest','customer');
+	//echo $order['status']
+?>
+<div class="list-edit">
+	<form name="frmEditPro" method="post" enctype="multipart/form-data">
+		<div class="action">
+			<h2 class="title">Update Order</h2>
+			<div class="save-reset">
+				<input class="button" type="submit" value="SAVE" />&nbsp;&nbsp;
+				<input class="button" type="reset" value="Reset" />
+			</div>
+		</div>
+		<div class="clr"></div>
+		<table width="100%" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td>#Order Id</td>
+				<td>
+					<input disabled type="text" name="order_id" value="<?php echo $order['order_id']; ?>" />
+				</td>
+			</tr>
+			<tr>
+				<td>Customer Email</td>
+				<td>
+					<input disabled type="text" name="cus_email" value="<?php echo $order['cus_email']; ?>" />
+				</td>
+			</tr>
+			<tr>
+				<td>Customer Type</td>
+				<td>
+					<select name="cus_type">
+						<option value="-1">Choose Customer Type</option>
+						<?php $i=0; foreach($cus_type as $_cus_type): ?>
+						<option value="<?php echo $_cus_type ?>" <?php if($order['cus_type']===$_cus_type): ?>selected="select"<?php endif; ?>><?php echo $_cus_type; ?></option>
+						<?php $i++; endforeach; ?>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Grand Total </td>
+				<td>
+					<input type="text" name="grand_total" value="<?php echo $order['grand_total']; ?>" />
+				</td>
+			</tr>
+			<tr>
+				<td>Payment Method</td>
+				<td>
+					<input type="text" name="payment_method" value="<?php echo $order['payment_method']; ?>" />
+				</td>
+			</tr>
+			<tr>
+				<td>Order Status</td>
+				<td>
+					<select name="status">
+						<option value="-1">Change Status</option>
+						<?php foreach($status as $_status): ?>
+						<option value="<?php echo $_status ?>" <?php if($order['status']===$_status): ?>selected="select"<?php endif; ?>><?php echo $_status; ?></option>
+						<?php endforeach; ?>
+					</select>
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>

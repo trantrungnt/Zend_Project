@@ -1,0 +1,28 @@
+<?php
+    $product=$this->product;
+	$url = $this->baseUrl().'/product/detail/id/';
+?>
+
+
+<div class="main-left">
+    <?php
+        foreach($product as $item){?>
+         <div class="box-product">
+			<div class="img-product">
+				<a href="<?php echo $url.$item['pro_id']; ?>">
+					<img src="<?php echo $this->baseUrl().$item['pro_img'] ?>" />
+				</a>
+			</div>
+			<h2><a class="title" href="<?php echo $url.$item['pro_id']; ?>"><?php echo $item['pro_name'] ?></a></h2>
+            <div class="price-product"><span class="price"><?php echo $item['pro_price'].'d'; ?></span></div>
+			<div class="action">
+				<button class="button" type="button"><span>Buy now</span></button>
+			</div>
+         </div>   
+    <?php }
+    ?>
+</div>
+
+<div class="main-right">
+    
+</div>

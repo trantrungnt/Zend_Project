@@ -1,0 +1,6 @@
+<div class="box-empty">
+<h3>Order #<?php echo $this->order_id;?> has been created. Please wait 5s to return to the home page or click <a href="<?php echo $this->baseUrl(); ?>">here</a> to go to homepage</h3>
+<script>
+	setTimeout(function() {window.location = "<?php echo $this->baseUrl(); ?>";},5000)
+</script>
+</div>

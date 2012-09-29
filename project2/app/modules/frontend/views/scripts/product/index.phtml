@@ -1,0 +1,39 @@
+﻿<?php
+    $product=$this->product;
+	$url = $this->baseUrl().'/product/detail/id/';
+    $urlpage='/product/show?'.$this->pageurl.'&page=';
+	$promotions = $this->promotion;
+	
+?>
+
+
+<div class="list-product">
+    <?php if(count($product)>0): ?>
+        <?php foreach($product as $item):?>
+         <div class="box-product">
+			<?php foreach($promotions as $proid=>$saleoff) { 
+                if($item['pro_id']==$proid){    
+            ?>
+                <div class="promotion">
+                    <label class="number-saleoff"><?php echo '-'.$saleoff;?>%</label>
+                </div>
+            <?php }} ?>
+			<div class="img-product">
+				<a href="<?php echo $url.$item['pro_id']; ?>">
+					<img src="<?php echo $this->baseUrl().$item['pro_img'] ?>" />
+				</a>
+			</div>
+			<h2 class="titles"><a class="title" href="<?php echo $url.$item['pro_id']; ?>"><?php echo $item['pro_name'] ?></a></h2>
+            <div class="price-product"><span class="price"><?php echo $item['pro_price'].'.000d'; ?></span></div>
+			<div class="action">
+				<button class="button" type="button" onclick="window.location = '<?php echo $this->baseUrl().'/cart/additem/id/'.$item['pro_id'] ?>'"><span>Buy now</span></button>
+			</div>
+         </div>   
+		<?php endforeach; ?>
+	<div class="paginator">                        
+		<?php echo  $this->paginationControl($this->product, 'Jumping', 'product/paging.phtml'); ?>
+	</div>
+	<?php else: ?>
+	<div class="result">There isn't product in this page.</div>
+	<?php endif; ?>
+</div>

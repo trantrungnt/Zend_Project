@@ -1,0 +1,69 @@
+<?php 
+$subcats = $this->subcat;
+$colors  = $this->color;
+$sizes   = $this->size;
+//echo '<pre>'; print_r($subcats); echo '</pre>';
+$data = $this->product;
+?>
+<div class="list-index">
+	<form name="frmProAdm" method="post" enctype="multipart/form-data">
+		<div class="action">
+			<h2 class="title">List Product</h2>
+			<div class="add-del">
+			<input class="button" type="button" value="ADD" onclick="onAdd('/admin/product/add');" />&nbsp;&nbsp;
+			<input class="button" type="button" value="DELETE" name="delAll" onclick="onDelAll('/admin/product/delete/id/');" />
+		</div>
+		</div>
+		<div class="clr"></div>
+		<table width="90%" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<th>ID</th>
+				<th>Subcategory</th>
+				<th>Product name</th>
+				<th>price</th>
+				<th>Quantity</th>
+				<th>Color</th>
+				<th>Size</th>
+				<th>Image</th>
+				<th colspan="2">Action</th>
+				<th><input type="checkbox" name="chkMasCheck" value="" onclick="onCheckAll();" /></th>
+			</tr>
+			<?php $i=1; foreach($data as $item): ?>
+			<tr>
+				<td style="text-align:center;"><?php echo $item['pro_id']; ?></td>
+				<td>
+				<?php foreach($subcats as $subcat): ?>
+				<?php if($subcat['subcat_id']==$item['subcat_id']): ?>
+				<?php echo $subcat['subcat_name']; ?>
+				<?php endif; ?>
+				<?php endforeach; ?>
+				</td>
+				<td><?php echo $item['pro_name']; ?></td>
+				<td><?php echo $item['pro_price']; ?></td>
+				<td><?php echo $item['pro_quantity']; ?></td>
+				<td>
+				<?php foreach($colors as $color): ?>
+				<?php if($color['col_id']==$item['col_id']): ?>
+				<?php echo $color['col_name']; ?>
+				<?php endif; ?>
+				<?php endforeach; ?>
+				</td>
+				<td>
+				<?php foreach($sizes as $size): ?>
+				<?php if($size['siz_id']==$item['siz_id']): ?>
+				<?php echo $size['siz_name']; ?>
+				<?php endif; ?>
+				<?php endforeach; ?>
+				</td>
+				<td><img src="<?php echo $this->baseUrl().$item['pro_img']; ?>" alt="main image of the product" width="50" height="50" /></td>
+				<td align="center"><a href="<?php echo $this->baseUrl(); ?>/admin/product/edit/id/<?php echo $item['pro_id']; ?>"><img class="change" src="<?php echo $this->baseUrl(); ?>/app/templates/admin/images/edit.png" title="edit" alt="edit" /></a></td>
+				<td align="center"><a href="javascript:void(0);" onclick="onDel('/admin/product/delete/id/<?php echo $item['pro_id']; ?>');"><img class="change" src="<?php echo $this->baseUrl(); ?>/app/templates/admin/images/del.png" alt="delete" title="delete" /></a></td>
+				<td align="center"><input type="checkbox" name="chk" value="<?php echo $item['pro_id']; ?>" /></td>
+			</tr>
+			<?php $i++; endforeach; ?>
+		</table>
+	</form>
+	<div class="paginator">                        
+		<?php echo  $this->paginationControl($this->product, 'Jumping', 'product/paging.phtml'); ?>
+	</div>
+</div>

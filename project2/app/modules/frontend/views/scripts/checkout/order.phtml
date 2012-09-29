@@ -1,0 +1,144 @@
+<?php 
+	$order_info = $this->order_info;
+	$order_payment = $this->order_payment;
+	$order_detail = $this->order_detail;
+	$cart=$this->cart;
+	$totalPrice=$this->totalPrice;
+ ?>
+ <div class="box-order">
+ <?php if($order_payment == 'Payment on delivery'): ?>
+<form method="post" action="">
+<div id="order">
+<div class="customer_infor">
+	<h4>Customer infomation</h4>
+	<div>
+		<label>Customer Name:</label><span><?php echo $order_info['full_name'] ?></span>		
+	</div>
+	<div>
+		<label>Customer Email:</label><span><?php echo $order_info['email'] ?></span>		
+	</div>
+	<div>
+		<label>Customer Phone:</label><span><?php echo $order_info['phone'] ?></span>		
+	</div>
+	<div>
+		<label>Delivery address:</label><span><?php echo $order_info['address'] ?></span>		
+	</div>
+	<a href="">Change your information!</a>
+</div>
+<div class="payment_method">
+	<h4>Payment Method</h4>
+	<div>
+		<label></label><span><?php echo $order_payment ?></span>		
+	</div>
+	<a href="">Change Payment Method!</a>
+</div>
+<div class="detail_order">
+	<h4>Detail order</h4>
+	<table cellspacing="0" border=1 class="data-table box-table shopping-cart" id="shopping-cart-table">
+		
+		<thead>
+			<tr class="first last">
+				<th width="500" rowspan="1">Product Name </th>
+				<th width="50" rowspan="1" class="a-center">Qty</th>
+				<th width="100" colspan="1" class="a-center">Total Price</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach($cart as $k=>$v): ?>
+			<?php
+				$check = new Frontend_Model_Cart();
+				$result=$check->getItem($k);
+			?>
+			<?php if($v>0): ?>
+			<tr class="first last odd">
+				<td class="attributes-col">
+					<h4 class="title"><a href="<?php echo $this->baseUrl().'/product/detail/id/'.$k ?>"><?php echo $result['pro_name'] ?></a></h4>			
+				</td>
+				<td class="a-center">
+					<span><?php echo $v ?></span></td>
+				<td class="a-right">
+					<div class="cart-price"> <span class="price"><?php echo (int)$result['pro_price']*$v ?>.000 VND</span>
+					</div>            
+				</td>
+			</tr>  
+			<?php endif; ?>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+	<span style="display:block;margin:20px 0;font-size:16px;margin-right:20px">Grand Total: <span style="font-weight:bold;color:#333;"><?php echo $totalPrice ?>.000 VND</span></span>
+</div>
+<div class="button"><input style="border:none;background:#3BA2C0;color:#fff;text-transform:uppercase;" type='submit' name='submit' value='Order'></div>
+</div>
+</form>
+<?php endif; ?>
+<?php if($order_payment == 'Payment by nganluong'): ?>
+<div id="order">
+	<div class="customer_infor">
+		<h4>Customer infomation</h4>
+		<div>
+			<label>Customer Name</label><span><?php echo $order_info['full_name'] ?></span>		
+		</div>
+		<div>
+			<label>Customer Email</label><span><?php echo $order_info['email'] ?></span>		
+		</div>
+		<div>
+			<label>Customer Phone</label><span><?php echo $order_info['phone'] ?></span>		
+		</div>
+		<div>
+			<label>Delivery address</label><span><?php echo $order_info['address'] ?></span>		
+		</div>
+		<a href="">Change your information!</a>
+	</div>
+	<div class="payment_method">
+		<h4>Payment Method</h4>
+		<div>
+			<label></label><span><?php echo $order_payment ?></span>		
+		</div>
+		<a href="">Change Payment Method!</a>
+	</div>
+	<div class="detail_order">
+		<h4>Detail order</h4>
+		<table cellspacing="0" border=1 class="data-table box-table shopping-cart" id="shopping-cart-table">
+			
+			<thead>
+				<tr class="first last">
+					<th width="500" rowspan="1">Product Name </th>
+					<th width="50" rowspan="1" class="a-center">Qty</th>
+					<th width="100" colspan="1" class="a-center">Total Price</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php foreach($cart as $k=>$v): ?>
+				<?php
+					$check = new Frontend_Model_Cart();
+					$result=$check->getItem($k);
+				?>
+				<?php if($v>0): ?>
+				<tr class="first last odd">
+					<td class="attributes-col">
+						<h4 class="title"><a href="<?php echo $this->baseUrl().'/product/detail/id/'.$k ?>"><?php echo $result['pro_name'] ?></a></h4>			
+					</td>
+					<td class="a-center">
+						<span><?php echo $v ?></span></td>
+					<td class="a-right">
+						<div class="cart-price"> <span class="price"><?php echo (int)$result['pro_price']*$v ?>.000 VND</span>
+						</div>            
+					</td>
+				</tr>  
+				<?php endif; ?>
+				<?php endforeach; ?>
+			</tbody>
+		</table>
+		<span>Grand Total <?php echo $totalPrice ?>.000 VND<span>
+	</div>
+	<form method="post" action="https://www.nganluong.vn/advance_payment.php">
+		<input type=hidden name=receiver value="duyhung862000@yahoo.com" />
+		<input type=hidden name=product value="<?php echo '#1'; ?>" />
+		<input type=hidden name=price value="<?php echo $totalPrice.'000'; ?>" />
+		<input type=hidden name=return_url value="http://complete.com/thank.php" />
+		<input type=hidden name=comments value="sonnv" />
+		<input type=image src="https://www.nganluong.vn/data/images/buttons/11.gif" />
+	</form>
+</div>
+<?php endif; ?>
+</div>

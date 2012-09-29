@@ -1,0 +1,41 @@
+<div class="pagination" style="width:100%">
+    <div style="float:center;width:28%">
+    </div>
+    <div style="float:center;width:70%;">
+        <!-- First page link -->
+        <?php if (isset($this->previous)): ?>
+              <a href="<?= $this->url(array('page' => $this->first)); ?>"><?php echo '<<'; ?></a> 
+        <?php else: ?>
+                <span class=""><a href="#"><?php echo '<<'; ?></a></span> 
+        <?php endif; ?>
+    
+        <!-- Previous page link -->
+    
+        <?php if (isset($this->previous)): ?>
+              <a href="<?= $this->url(array('page' => $this->previous)); ?>"><?php echo '<'; ?></a> 
+        <?php else: ?>
+            <span class=""><a href="#"><?php echo '<'; ?></a></span> 
+        <?php endif; ?>
+        <!-- Numbered page links -->
+        <?php foreach ($this->pagesInRange as $page): ?>
+            <?php if ($page != $this->current): ?>
+                <a href="<?= $this->url(array('page' => $page)); ?>"><?= $page; ?></a>
+            <?php else: ?>
+                <div class = "current"><a href="#"><?= $page; ?></a></div>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        <!-- Next page link -->
+        <?php if (isset($this->next)): ?>
+               <a href="<?= $this->url(array('page' => $this->next)); ?>"><?php echo '>'; ?></a> 
+        <?php else: ?>
+             <span class=""><a href="#"><?php echo '>'; ?></a></span> 
+        <?php endif; ?>
+        <!-- Last page link -->
+        <?php if (isset($this->next)): ?>
+              <a href="<?= $this->url(array('page' => $this->last)); ?>"><?php echo '>>'; ?></a>
+        <?php else: ?>
+            <span class=""><a href="#"><?php echo '>>'; ?></a></span>
+        <?php endif; ?>
+         <!-- Page <?= $this->current; ?> of <?= $this->last; ?>-->
+    </div>
+ </div>

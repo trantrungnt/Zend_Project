@@ -1,0 +1,23 @@
+<?php
+	 $data = $this->rstopmenu;
+	 $submenu = $this->submenu; 
+?>
+
+<div class="block-topmenu">
+	<ul class="topmenu">
+		<?php foreach($data as $item){ ?>
+		<li><a href="#"><?php echo $item['cat_name'];?></a>
+			<ul>
+				<?php
+					foreach($submenu as $row){  
+						if($row['cat_id']==$item['cat_id']){	
+				?>
+				<li><a href="#"><?php echo $row['cop_name'] ?></a></li>
+				<?php } }?>	
+			</ul>
+		</li>
+		<?php } ?>
+		<li><a href="#"><?php echo 'contact';?></a></li>
+	</ul>	
+	<div class="admin-logout">Hi! <span>Admin</span><a href="">Logout</a></div>
+</div>

@@ -1,0 +1,83 @@
+<?php $cart=$this->cart; ?>
+<div class="box-cart">
+	<div class="top-cart">
+	<h2 class="title title-cart">Shopping cart</h2>
+	<!--<a href="<?php echo $this->baseUrl().'/checkout/infor' ?>"><button style="margin-right: 40px;" type="button" class="button thanhtoan"><span>CheckOut</span></button></a>-->
+	</div>
+	<div class="clr"></div>
+	<div class="cart-detail">
+		<form method="post" action="<?php echo $this->baseUrl().'/cart/updatecart' ?>">
+		<table cellspacing="0" border=1 class="data-table box-table shopping-cart" id="shopping-cart-table">
+			<colgroup><col width="75"/>
+			<col/>
+			<col width="80"/>
+			<col width="1"/>
+			<col width="80"/>
+			<col width="40"/>
+			</colgroup>
+			<tfoot>
+				
+			</tfoot>
+			<thead>
+				<tr class="first shop-update">
+					<td class="a-right last" colspan="100">
+						<a class="button ct-shop f-left" href="<?php echo $this->baseUrl() ?>">Continue Shopping</a>
+						<input class="button update-cart" type="image" alt="update cart" src=""/>
+					</td>
+				</tr>
+				<tr class="first last">
+					<th rowspan="1"> </th>
+					<th rowspan="1" style="text-align:left;">Product Name </th>
+					<th colspan="1" style="text-align:left;">Price</th>
+					<th style="text-align:left;" rowspan="1">Qty</th>
+					<th style="text-align:left;" colspan="1">Grand Total </th>
+					<th style="text-align:left;" rowspan="1">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php $totalPrice=0; foreach($cart as $k=>$v): ?>
+				<?php
+					$check = new Frontend_Model_Cart();
+					$result=$check->getItem($k);
+				?>
+				<?php if($v>0): ?>
+				<tr class="line-cart">
+					<td>
+						<a href="<?php echo $this->baseUrl().'/product/detail/id/'.$k ?>">
+							<img width="75" height="75" alt="" src="<?php echo $this->baseUrl().$result['pro_img'] ?>"/>
+						</a>
+					</td>
+					<td class="attributes-col">
+						<h4 class="title"><a href="<?php echo $this->baseUrl().'/product/detail/id/'.$k ?>"><?php echo $result['pro_name'] ?></a></h4>
+					</td>
+					<td class="a-right">
+						<div class="cart-price"><span class="price"><?php echo $result['pro_price'].'.000vnd' ?></span></div>
+					</td>
+					<td class="a-center">
+						<input maxlength="8" class="input-text qty" size="4" value="<?php echo $v ?>" name="cart[<?php echo $k ?>][qty]"/>
+					</td>
+					<td class="a-right">
+						<div class="cart-price"> <span class="price"><?php echo (int)$result['pro_price']*$v ?>.000VND</span></div>
+					</td>
+					<td class="a-center last">
+						<a href="<?php echo $this->baseUrl().'/cart/delete/id/'.$k?>"><img width="16" height="16" alt="" src="<?php echo $this->baseUrl().'/app/templates/frontend/images/btn_trash.gif' ?>"/></a>
+					</td>
+				</tr>  
+				<?php endif; ?>
+				<?php $totalPrice+=(int)$result['pro_price']*$v; endforeach; ?>
+				
+			</tbody>
+		</table>
+		</form>
+	</div>
+</div>
+<div style="float:right;width:250px;">
+	<span style="display:block">
+		<span style="font-size: 1.5em; padding-right: 30px;">Grand Total</span>
+		<span class="price-total"><?php echo $totalPrice.'.000vnd'?></span>
+	</span>
+	</br>
+	<a href="<?php echo $this->baseUrl().'/checkout/infor' ?>"><button style="margin-left: 105px;" type="button" class="button thanhtoan"><span>CheckOut</span></button></a>
+</div>
+<?php $yourCart = new Zend_Session_Namespace('cart');
+				$yourCart->totalPrice = $totalPrice; ?>

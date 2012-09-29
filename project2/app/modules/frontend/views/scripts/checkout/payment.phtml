@@ -1,0 +1,17 @@
+<div class="box-payment">
+<form name="frmPayment" action="" method="post">                  
+	<div class="cus_info">
+		<h3>Please select the payment method.</h3>
+		<br>
+		<input type="checkbox" name="paypal" value=''><img src="<?php echo $this->baseUrl().'/app/templates/frontend/images/paypalpg.gif' ?>" />&nbsp;Payment by Paypal.</input>
+		<br>
+		<input type="checkbox" name="onepay" value=''><img src="<?php echo $this->baseUrl().'/app/templates/frontend/images/onepaypg.gif' ?>" />&nbsp;Payment by Onepay.</input>
+		<br>
+		<input type="checkbox" name="nganluong" value=''><img src="<?php echo $this->baseUrl().'/app/templates/frontend/images/nganluongpg.gif' ?>" />&nbsp;Payment by Ngan Luong.</input>
+		<br>
+		<input type="checkbox" name="delivery" value=''>&nbsp;Payment on delivery.</input>
+		<br>
+		<input type="submit" name="update" value="Next" class="button"/> 
+	</div>
+</form>
+</div>

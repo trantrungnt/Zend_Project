@@ -1,0 +1,128 @@
+<?php echo $this->doctype(); ?>
+
+<html xmlns = "http://www.w3.org/1999/xhtml"> 
+<head>
+	<?php echo $this->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8'); ?> 
+    <?php echo $this->headTitle('Admin fashion for you'); ?> 
+	<?php echo $this->headLink()->appendStylesheet($this->baseUrl().'/app/templates/admin/css/style.css'); ?>
+	<?php echo $this->headLink()->appendStylesheet($this->baseUrl().'/app/templates/admin/js/calendar/jquery.ui.css'); ?>
+	<script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/app/templates/admin/js/jquery144.js"></script>
+	<script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/app/templates/admin/js/calendar/jquery.ui.js"></script>
+	<script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/app/templates/admin/js/calendar/jquery.calendar.js"></script>
+	<script language="javascript">
+	$(document).ready(function(){
+		
+		getDatePicker('addstartdate');
+		getDatePicker('addenddate');
+		getDatePicker('editstartdate');
+		getDatePicker('editenddate');
+	});
+	var baseUrl = '<?php echo $this->baseUrl() ?>';
+	// datepicker
+	function getDatePicker(_id) {	
+	$("#"+_id).datepicker({
+		 showOn:'button',
+		 dateFormat:"yy-mm-dd",
+		 buttonImage:baseUrl+'/app/templates/admin/images/calendar.gif',
+		 buttonImageOnly:true,
+		 yearRange: '1950:{year}',
+		 changeMonth:true,
+		 changeYear:true,
+		 showMonthAfterYear: true
+		 //minDate:0
+	   });
+	 }
+	// check all
+	function onCheckAll(){
+		var check=document.getElementsByName('chkMasCheck');			
+		var items=document.getElementsByName('chk');	        
+		if( check[0].checked==true){
+			for(var i=0;i<items.length;i++){
+				items[i].checked=true;	
+			}
+		}else{
+			for(var i=0;i<items.length;i++){
+				items[i].checked=false;	
+			}
+		}
+	}
+	
+	// delete all
+	function onDelAll(_dr){	
+		var items=document.getElementsByName('chk');
+		var arr = '';	        
+		for(var i=0;i<items.length;i++){
+			if(items[i].checked==true){
+				arr+=items[i].value+",";
+			}	
+		}
+		if(arr.length==0){
+			alert("You must be at least one item");	
+		}
+		if(arr.length==1){
+			var listId=arr.substring(0,arr.length-1);
+			if(confirm("do you want to delete the data?")){
+				window.location.href="<?php echo $this->baseUrl(); ?>"+_dr+listId;
+			}	
+		}
+		if(arr.length>1){
+			var listId=arr.substring(0,arr.length-1);
+			if(confirm("do you want to delete these datas?")){
+				window.location.href="<?php echo $this->baseUrl(); ?>"+_dr+listId;
+			}
+		}
+	}
+	
+	// link add
+	function onAdd(_dr){
+		window.location.href="<?php echo $this->baseUrl(); ?>"+_dr;
+	}
+	
+	// link del
+	function onDel(_dr){
+		if(confirm("do you want to delete this record?")){
+			window.location.href="<?php echo $this->baseUrl(); ?>"+_dr;
+		}
+	}
+	</script>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="header">
+			<div class="banner">Admin panel fashion for you</div>
+			<div class="top-menu">
+				<ul class="menu">
+					<li><a href="<?php echo $this->baseUrl(); ?>/admin/cat/index">Catalog</a>
+						<ul class="submenu">
+							<li><a href="<?php echo $this->baseUrl(); ?>/admin/cat/index">Manage category</a></li>
+							<li><a href="<?php echo $this->baseUrl(); ?>/admin/subcat/index">Manage subcategory</a></li>
+							<li><a href="<?php echo $this->baseUrl(); ?>/admin/product/index">Manage product</a></li>
+						</ul>
+					</li>
+					<li><a href="<?php echo $this->baseUrl(); ?>/admin/customer/index">Customer</a>
+						<ul class="submenu">
+							<li><a href="<?php echo $this->baseUrl(); ?>/admin/customer/index">List customer</a></li>
+						</ul>
+					</li>
+					<li><a href="<?php echo $this->baseUrl(); ?>/admin/order/index">Orders</a>
+						<ul class="submenu">
+							<li><a href="<?php echo $this->baseUrl(); ?>/admin/order/index">Manage order</a></li>
+						</ul>
+					</li>
+					<li><a href="<?php echo $this->baseUrl(); ?>/admin/promotion/index">Promotion</a></li>
+					<li><a href="<?php echo $this->baseUrl(); ?>/admin/login/logout">Logout</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="clr"></div>
+		<div class="main-contain">
+			<div class="main-left"><?php //echo $this->action('leftmenu','index','admin'); ?></div>
+			<div class="main-content"><?php echo $this->layout()->content; ?></div>
+		</div>
+		<div class="clr"></div>
+		<div class="footer">
+			<div class="copy-right">&copy; copyright <span><a href="">Fashion for you</a></span><br /> Code by &nbsp;&nbsp;<span style="color:#990000;">team p1101k</span>&nbsp;&nbsp; in  2011-2012</div>
+		</div>
+	</div>
+</body>
+</html>   

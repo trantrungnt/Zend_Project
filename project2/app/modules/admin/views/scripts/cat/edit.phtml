@@ -1,0 +1,35 @@
+<?php 
+	$errcn = $this->errcn;
+	$errcd = $this->errcd;
+	$cat= $this->cat;
+?>
+<div class="list list-edit">
+	<form name="frmEditCat" method="post" enctype="multipart/form-data">
+	    <div class="action">
+			<h2 class="title">Edit Category</h2>
+			<div class="save-reset">
+				<input class="button" type="submit" value="SAVE" />&nbsp;&nbsp;
+				<input class="button" type="reset" value="Reset" />
+			</div>
+		</div>
+		<div class="clr"></div>
+		<table width="100%" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td>Category name: </td>
+				<td><input type="text" name="txtCatName" value="<?php echo $cat['cat_name']; ?>" />
+					<?php if($errcn): ?>
+					<label class="err"><?php echo $errcn; ?></label>
+					<?php endif; ?>
+				</td>
+			</tr>
+			<tr>
+				<td>Description: </td>
+				<td><textarea id="txtSortDes" name="txtCatDes" cols=30" rows="5"><?php echo $cat['cat_des']; ?></textarea>
+					<?php if($errcd): ?>
+					<label class="err"><?php echo $errcd; ?></label>
+					<?php endif; ?>
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>

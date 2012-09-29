@@ -1,0 +1,42 @@
+<style>
+.cart span{
+	display: block;
+	width: 160px;
+	float:left;
+	margin-top: 25px;
+	font-size: 1.1em;
+	color:#3BA2C0;
+}
+.cart a {
+	color:#3BA2C0;
+	font-weight:bold;
+	text-decoration: none
+}
+</style>
+<div class="cart block-cart">
+	<fieldset style="border:1px solid #e1e1e1;padding:5px">
+	<legend style="margin-left:20px;text-transform: uppercase;color:#3BA2C0;font-weight:bold">Cart Detail</legend>
+	<?php 
+		$yourCart = new Zend_Session_Namespace('cart');
+		$totalItems = $yourCart->totalItems;
+		$total = $yourCart->totalPrice;
+	?>
+	<?php if($totalItems): ?>
+	<span>
+	<?php 
+		if($totalItems <= 1){
+			echo $totalItems.'<a href="'.$this->baseUrl().'/cart/"> item</a>';
+		} else {
+			echo $totalItems.'<a href="'.$this->baseUrl().'/cart/"> items</a>';
+		}
+	?> | <?php echo $total ?> VND | <a href="<?php echo $this->baseUrl().'/checkout/infor' ?>">Checkout</a>
+	</span>
+	<?php endif; ?>
+	<?php if(!$totalItems): ?>
+	<span>
+	0 item | 0 VND | <a href="<?php echo $this->baseUrl().'/checkout/infor' ?>">Checkout</a>
+	</span>
+	<?php endif; ?>
+	<a href="<?php echo $this->baseUrl().'/cart/' ?>"><img src="<?php echo $this->BaseUrl().'/app/templates/frontend/images/cart60x60.png' ?>" /></a>
+	</fieldset>
+</div>

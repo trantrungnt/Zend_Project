@@ -1,0 +1,40 @@
+<?php 
+$data = $this->data;
+?>
+<div class="list list-index">
+	<form name="frmCusAdm" method="post" enctype="multipart/form-data">
+		<div class="action">
+			<h2 class="title">List Customers</h2>
+			<div class="add-del">
+				<input class="button" type="button" value="ADD" onclick="onAdd('/admin/customer/add');" />&nbsp;&nbsp;
+				<input class="button" type="button" value="DELETE" name="delAll" onclick="onDelAll('/admin/customer/delete/id/');" />
+			</div>
+		</div>
+		<div class="clr"></div>
+		<table width="100%" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<th>STT</th>
+				<th>Name</th>
+				<th>Email</th>
+				<th>Phone</th>
+				<th>Address</th>
+				<th>Avatar</th>
+				<th colspan="2">Action</th>
+				<th><input type="checkbox" name="chkMasCheck" value="" onclick="onCheckAll();" /></th>
+			</tr>
+			<?php $i=1; foreach($data as $item): ?>
+			<tr>
+				<td style="text-align:center;"><?php echo $i; ?></td>
+				<td><?php echo $item['cus_name']; ?></td>
+				<td><?php echo $item['cus_email']; ?></td>
+				<td><?php echo $item['cus_phone']; ?></td>
+				<td><?php echo $item['cus_address']; ?></td>
+				<td align="center"><img class="change" width=80 height=100 src="<?php echo $this->baseUrl().'/app/templates/admin/images/upload/avatar/'.$item['cus_avatar']; ?>" title="avatar" alt="avatar" /></td>
+				<td align="center"><a href="<?php echo $this->baseUrl().'/admin/customer/edit/id/'.$item['cus_id']; ?>"><img class="change" src="<?php echo $this->baseUrl().'/app/templates/admin/images/edit.png'; ?>" title="edit" alt="edit" /></a></td>
+				<td align="center"><a href="javascript:void(0);" onclick="onDel('/admin/customer/delete/id/<?php echo $item['cus_id']; ?>');"><img class="change" src="<?php echo $this->baseUrl(); ?>/app/templates/admin/images/del.png" alt="delete" title="delete" /></a></td>
+				<td align="center"><input type="checkbox" name="chk" value="<?php echo $item['cus_id']; ?>" /></td>
+			</tr>
+			<?php $i++; endforeach; ?>
+		</table>
+	</form>
+</div>

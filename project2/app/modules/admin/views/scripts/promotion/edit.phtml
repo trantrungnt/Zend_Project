@@ -1,0 +1,48 @@
+<?php 
+	
+	$promotions= $this->data;
+?>
+<div class="list list-add">
+	<form name="frmPromAdm" method="post" enctype="multipart/form-data">
+		<div class="action">
+			<h2 class="title">Add Promotion</h2>
+			<div class="save-reset">
+				<input class="button" type="submit" value="SAVE" />&nbsp;&nbsp;
+				<input class="button" type="reset" value="Reset" />
+			</div>
+		</div>
+		<div class="clr"></div>
+		<table width="100%" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td>Promotion name: </td>
+				<td><input type="text" name="name" value="<?php  echo $promotions['name'] ;?>" />
+					<label class="err"><?php  ?></label>
+				</td>
+			</tr>
+			<tr>
+				<td>Sale off: </td>
+				<td><input type="text" name="saleoff" value="<?php echo $promotions['saleoff'] ; ?>" />
+					<label class="err"><?php ?></label>
+				</td>
+			</tr>
+			<tr>
+				<td>Start date: </td>
+				<td><input id="editstartdate" type="text" name="startdate" value="<?php echo $promotions['start_date'] ; ?>" />
+					<label class="err"><?php ?></label>
+				</td>
+			</tr>
+			<tr>
+				<td>End date: </td>
+				<td><input id="editenddate" type="text" name="enddate" value="<?php echo $promotions['end_date'] ; ?>" />
+					<label class="err"><?php ?></label>
+				</td>
+			</tr>
+			<tr>
+				<td>product: </td>
+				<td>
+                <?php echo $promotions['html']; ?>
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>

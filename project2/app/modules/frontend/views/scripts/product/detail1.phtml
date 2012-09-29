@@ -1,0 +1,142 @@
+<?php
+    $detail = $this->product;
+	$url=$this->baseUrl().'/product/index?name=';
+	$data = $this->data;
+	$comment = $this->result;
+	$error = $this->error;
+	$error_name = $this->error_name;
+	$error_content = $this->error_content;
+?>
+<script>
+	var url = '<a class="chidan1" href="<?php echo $url.$detail['caturl'] ?>"><?php echo  $detail['cat_name']; ?></a>';
+	url += '<span class="chidan-next">|</span><a class="chidan2" href="<?php echo $url.$detail['caturl'].'&subname='.$detail['subcaturl'] ?>"><?php echo  $detail['subcat_name']; ?></a>';
+	$(".chidan").html(url);
+	
+	$(document).ready(function(){
+		$("ul.topmenu > li >a").each(function(){
+			var value_cat = $(this).text();
+			if(value_cat=='<?php echo $detail['cat_name'];  ?>'){
+				$("ul.topmenu > li >a.active").removeClass('active');
+				$(this).addClass('active');
+			}
+		});
+	});
+</script>
+<style>
+	
+</style>
+<?php $product = new Frontend_Model_Product();
+	$id = Zend_Controller_Front::getInstance()->getRequest()->getParam('id');
+	$gal_url = $product->getGalImages($id);
+?>
+<div class="main-left_detail" style="">
+	<div class="box-detail">
+		<div class="left-detail">
+			<div id="main_img">
+				<a id="imgdefault0" class="active"><img src="<?php echo $this->baseUrl().$detail['pro_img']; ?>" width="300" height="300" />
+				<?php $i=1; foreach($gal_url as $_gal_url): ?>
+				<?php if($_gal_url['gal_img']): ?>
+				<a id="imgdefault<?php echo $i; ?>"><img width="300" height="300" src="<?php echo $this->baseUrl().$_gal_url['gal_img'] ?>" /></a>
+				<?php endif; ?>
+				<?php $i++; endforeach; ?>
+			</div>
+			<label style="display:block; margin-left:20px; text-transform: uppercase;color:#3BA2C0;font-size:1.0em;font-weight:bold;padding-top:10px">More Views</label>
+			<div class="gal_img">
+				<p></br></p>
+				<a id="thumbimg0" class="thumbimg"><img src="<?php echo $this->baseUrl().$detail['pro_img']; ?>" width="56" height="56" /></a>
+				<?php $i=1; foreach($gal_url as $_gal_url): ?>
+				<?php if($_gal_url['gal_img']): ?>
+				<a id="thumbimg<?php echo $i; ?>" class="thumbimg"><img width=56 height=56 src="<?php echo $this->baseUrl().$_gal_url['gal_img'] ?>" /></a>
+				<?php endif; ?>
+				<?php $i++; endforeach; ?>
+			</div>
+		</div>
+
+		<div class="right-detail">
+			<h2 class="title"><?php echo $detail['pro_name']; ?></h2>
+			<div class="price"><?php echo $detail['pro_price'].'d' ?></div>
+			<div class="action">
+				<button class="button" type="button" onclick="window.location = '<?php echo $this->baseUrl().'/cart/additem/id/'.$detail['pro_id'] ?>'"><span>Buy now</span></button>
+			</div>
+			<div class="des"><?php echo $detail['pro_des'] ?></div>
+		</div>
+	</div>
+	<div class="clr"></div>
+	<label style="display:block; margin-left:20px; text-transform: uppercase;padding:10px;color:#3BA2C0;font-size:1.1em;font-weight:bold">Related Product</label>
+	<div class="related">
+	<?php foreach($product->getRelatedProduct($id) as $_result): ?>
+		<div class="related_item">
+			<a href="<?php echo $this->baseUrl().'/product/detail/id/'.$_result['pro_id'] ?>"><img width="150" height="150" src="<?php echo $this->baseUrl().$_result['pro_img'] ?>" /></a>
+			<br><br>
+			<span>Price&nbsp;<?php echo $_result['pro_price'] ?>&nbsp;VND</span>
+			<br><br>
+			<a href="<?php echo $this->baseUrl().'/product/detail/id/'.$_result['pro_id'] ?>"><?php echo $_result['pro_name'] ?></a>
+		</div>
+	<?php endforeach; ?>	
+	</div>
+	<?php foreach($comment as $_comment): ?>
+	<div class="comment">
+		<div class="avatar">
+			<img src="<?php echo $this->baseUrl().'/app/templates/frontend/images/default_avatar.gif' ?>" alt="default_avatar" />
+		</div>
+		<div class="name"><?php echo $_comment['cus_name'] ?></div>
+		<div class="date" title="Added at <?php echo date('d M Y', strtotime($_comment['date_create'])); ?>"><?php echo date('d M Y', strtotime($_comment['date_create'])); ?></div>
+		<p><?php echo $_comment['com_content']; ?></p>
+	</div>
+	<?php endforeach; ?>
+	
+	<div class="comment_form">
+	<?php 
+		echo $this->partial('product/comment.phtml',
+							array(	'error'=>$error,
+									'error_name'=>$error_name,
+									'error_content'=>$error_content,
+									'content'=>$data['content'],
+									'name'=>$data['name'])); 
+	?>
+	</div>
+</div>
+
+<script>
+<?php if($i>1): ?>
+var lastindexitem 	= "";
+var ttimeout   		= "";
+var iditem 			= "";
+var indexitem 		= "";
+var continuesimg 	= 1;
+var qtythumbimg	 	= <?php echo $i; ?>;
+function loadimg(){
+	var $active = jQuery('#main_img a.active');
+	if ( $active.length == 0 ){
+		$active = jQuery('#main_img a:last');
+		//jQuery("#thumbimg"+continuesimg).css("border","2px solid black");
+	} 
+	var $next =  $active.next().length ? $active.next()
+		: jQuery('#main_img a:first');
+	//continuesimg +=1;
+	jQuery("#thumbimg"+continuesimg).css("border","2px solid #3BA2C0");
+	if(continuesimg!=0){
+		continuesimg -=1
+		jQuery("#thumbimg"+continuesimg).css("border","2px solid #DDDDDD");
+		continuesimg +=1
+	} else {
+		a = qtythumbimg - 1;
+		jQuery("#thumbimg"+a).css("border","2px solid #DDDDDD");
+	}
+	$active.addClass('last-active');
+	$next.css({opacity: 0.0})
+		.addClass('active')
+		.animate({opacity: 1.0}, 1000, function() {
+		$active.removeClass('active last-active');
+	});
+	continuesimg++;
+	if(continuesimg==qtythumbimg){
+		continuesimg	= 0;
+	}
+	//alert(continuesimg);
+	//alert(continuesimg);
+	ttimeout = setTimeout("loadimg()",3000);
+}
+ttimeout = setTimeout("loadimg()",3000);
+<?php endif; ?>
+</script>

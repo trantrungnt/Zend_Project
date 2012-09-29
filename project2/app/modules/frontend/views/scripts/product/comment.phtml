@@ -1,0 +1,18 @@
+<div id="addCommentContainer">
+	<p>Add a Comment</p>
+	</br>
+	<form id="addCommentForm" method="post" action="">
+    	<div>
+        	<label for="name">Your Name</label>
+        	<input type="text" name="name" id="name" value="<?php echo $this->escape($this->name) ?>" />
+            <span style="color: red; font-size: 0.8em;"><?php echo $this->escape($this->error_name) ?></span></br>
+            <label for="email">Your Email</label>
+            <input type="text" name="email" id="email" />
+			<span style="color: red; font-size: 0.8em;"><?php echo $this->escape($this->error) ?></span></br>
+            <label for="body">Comment Body</label>
+            <textarea name="body" id="body" cols="20" rows="5"><?php echo $this->escape($this->content) ?></textarea>
+            <span style="color: red; font-size: 0.8em;"><?php echo $this->escape($this->error_content) ?></span></br>
+            <input type="submit" id="submit" value="Submit" style="display:block;"/>
+        </div>
+    </form>
+</div>

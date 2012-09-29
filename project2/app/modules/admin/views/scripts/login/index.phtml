@@ -1,0 +1,17 @@
+<?php
+  $data=$this->data;
+?>
+<div class="login-frm">
+	<form name="frmlogin" method="post">
+		<div class="err"><?php echo $this->error;  ?></div>
+		<div>
+			<label>User name: </label>
+			<input type="text" name="usrlogin" value="<?php echo $data['username']?>" />
+		</div>
+		<div>
+			<label>Pass word: </label>
+			<input type="password" name="pwdlogin" value="<?php echo $data['password']?>" />
+		</div>
+		<div class="bt"><button class="button" type="submit"><span>Login</span></button></div>
+	</form>
+</div>

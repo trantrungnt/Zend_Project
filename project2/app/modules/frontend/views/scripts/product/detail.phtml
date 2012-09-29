@@ -1,0 +1,112 @@
+﻿<?php
+    $detail = $this->product;
+	$url=$this->baseUrl().'/product/index?name=';
+	$data = $this->data;
+	$comment = $this->result;
+	$error = $this->error;
+	$error_name = $this->error_name;
+	$error_content = $this->error_content;
+	$promotions = $this->promotion;
+    $galleries = $this->gallery;
+?>
+<script>
+	var url = '<a class="chidan1" href="<?php echo $url.$detail['caturl'] ?>"><?php echo  $detail['cat_name']; ?></a>';
+	url += '<span class="chidan-next">|</span><a class="chidan2" href="<?php echo $url.$detail['caturl'].'&subname='.$detail['subcaturl'] ?>"><?php echo  $detail['subcat_name']; ?></a>';
+	$(".chidan").html(url);
+	
+	$(document).ready(function(){
+		//add class menu
+		$("ul.topmenu > li >a").each(function(){
+			var value_cat = $(this).text();
+			if(value_cat=='<?php echo $detail['cat_name'];  ?>'){
+				$("ul.topmenu > li >a.active").removeClass('active');
+				$(this).addClass('active');
+			}
+		});
+		//fancybox
+		$("a[rel=group_gallery]").fancybox({
+			'transitionIn'		: 'none',
+			'transitionOut'		: 'none',
+			'titlePosition' 	: 'over',
+			'titleFormat'		: function(title, currentArray, currentIndex, currentOpts) {
+				return '<span id="fancybox-title-over">Image ' + (currentIndex + 1) + ' / ' + currentArray.length + (title.length ? ' &nbsp; ' + title : '') + '</span>';
+			}
+		});
+	});
+</script>
+
+<?php $product = new Frontend_Model_Product();
+	$id = Zend_Controller_Front::getInstance()->getRequest()->getParam('id');
+	//$gal_url = $product->getGalImages($id);
+?>
+<div class="box-detail">
+	<?php foreach($promotions as $proid=>$saleoff) { 
+		if($detail['pro_id']==$proid){    
+	?>
+		<div class="promotion">
+			<label class="number-saleoff"><?php echo '-'.$saleoff;?>%</label>
+		</div>
+	<?php }} ?>
+	<div class="left-detail">
+		<img src="<?php echo $this->baseUrl().$detail['pro_img']; ?>" width="400" height="400" />
+		<ul class="gallery" id="gallery">
+            <?php foreach($galleries as $gallery): ?>
+            <li>
+				<a rel="group_gallery" href="<?php echo $this->baseUrl().$gallery['gal_img'] ?>">
+					<img src="<?php echo $this->baseUrl().$gallery['gal_img'] ?>" alt="galimg" width="50" height="50"/>
+				</a>
+			</li>
+            <?php endforeach; ?>
+        </ul>
+	</div>
+	<div class="right-detail">
+		<h2 class="title"><?php echo $detail['pro_name']; ?></h2>
+		<div class="box-price">
+			<span class="price"><?php echo $detail['pro_price'].'.000vnd' ?></span><br/>
+			<?php foreach($promotions as $proid=>$saleoff) { 
+				if($detail['pro_id']==$proid){    
+			?>
+				giá đặc biệt:<span class="newprice"><?php echo  ($detail['pro_price']*(100-$saleoff))/100;?>.000vnd</span>
+			<?php }} ?>
+		</div>
+		<div class="action">
+			<button class="button" type="button" onclick="window.location = '<?php echo $this->baseUrl().'/cart/additem/id/'.$detail['pro_id'] ?>'"><span>Buy now</span></button>
+		</div>
+		<div class="des"><?php echo $detail['pro_des'] ?></div>
+	</div>
+</div>
+<div class="clr"></div>
+<label style="display:block; margin-left:20px; text-transform: uppercase;padding:10px;color:#3BA2C0;font-size:1.1em;font-weight:bold">Related Product</label>
+	<div class="related">
+	<?php foreach($product->getRelatedProduct($id) as $_result): ?>
+		<div class="related_item">
+			<a href="<?php echo $this->baseUrl().'/product/detail/id/'.$_result['pro_id'] ?>"><img width="150" height="150" src="<?php echo $this->baseUrl().$_result['pro_img'] ?>" /></a>
+			<br><br>
+			<span>Price&nbsp;<?php echo $_result['pro_price'] ?>&nbsp;VND</span>
+			<br><br>
+			<a href="<?php echo $this->baseUrl().'/product/detail/id/'.$_result['pro_id'] ?>"><?php echo $_result['pro_name'] ?></a>
+		</div>
+	<?php endforeach; ?>	
+	</div>
+<?php foreach($comment as $_comment): ?>
+<div class="comment">
+	<div class="avatar">
+		<img src="<?php echo $this->baseUrl().'/app/templates/frontend/images/default_avatar.gif' ?>" alt="default_avatar" />
+	</div>
+	<div class="name"><?php echo $_comment['cus_name'] ?></div>
+	<div class="date" title="Added at <?php echo date('d M Y', strtotime($_comment['date_create'])); ?>"><?php echo date('d M Y', strtotime($_comment['date_create'])); ?></div>
+	<p><?php echo $_comment['com_content']; ?></p>
+</div>
+<?php endforeach; ?>
+
+<div class="comment_form">
+<?php 
+	echo $this->partial('product/comment.phtml',
+						array(	'error'=>$error,
+								'error_name'=>$error_name,
+								'error_content'=>$error_content,
+								'content'=>$data['content'],
+								'name'=>$data['name'])); 
+?>
+</div>
+

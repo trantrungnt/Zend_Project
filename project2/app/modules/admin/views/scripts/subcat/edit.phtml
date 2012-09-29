@@ -1,0 +1,55 @@
+<?php 
+	$errc = $this->errc;
+	$errscn= $this->errscn;
+	$errscd = $this->errscd;
+	$subcat= $this->subcat;
+	$cat   = $this->catdata;
+	//echo '<pre>'; print_r($subcat); echo '</pre>';
+	
+?>
+<div class="list list-edit">
+	<form name="frmAddAdm" method="post" enctype="multipart/form-data">
+		<div class="action">
+			<h2 class="title">Edit Subcategory</h2>
+			<div class="save-reset">
+				<input class="button" type="submit" value="SAVE" />&nbsp;&nbsp;
+				<input class="button" type="reset" value="Reset" />
+			</div>
+		</div>
+		<div class="clr"></div>
+		<table width="100%" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td>Category: </td>
+				<td>
+					<select name="catname">
+						<option value="-1"><?php echo 'choose category'?></option>
+						<?php foreach($cat as $catitem): ?>
+						<option value="<?php echo $catitem['cat_id'] ?>" <?php if($catitem['cat_id']==$subcat['cat_id']): ?>selected="select"<?php endif; ?>><?php echo $catitem['cat_name']; ?></option>
+						<?php endforeach; ?>
+					</select>
+					<?php if($errc): ?>
+					<label class="err"><?php echo $errc ?></label>
+					<?php endif; ?>
+				</td>
+			</tr>
+			<tr>
+				<td>Subcategory: </td>
+				<td>
+					<input type="text" name="txtSubcatName" value="<?php echo $subcat['subcat_name'] ?>" />
+					<?php if($errscn): ?>
+					<label class="err"><?php echo $errscn ?></label>
+					<?php endif; ?>
+				</td>
+			</tr>
+			<tr>
+				<td valign="top">Description: </td>
+				<td>
+					<textarea id="txtSortDes" name="txtDes" cols="60" rows="10" ><?php echo $subcat['subcat_des']; ?></textarea>
+					<?php if($errscd): ?>
+					<label class="err"><?php echo $errscd ?></label>
+					<?php endif; ?>
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>

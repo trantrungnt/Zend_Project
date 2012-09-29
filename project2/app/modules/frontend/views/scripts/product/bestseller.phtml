@@ -1,0 +1,57 @@
+<?php
+	$product = new Frontend_Model_Product();
+	$product_id = $product->getAllProductIds();
+	$a = array();
+	foreach($product_id as $_pro_id){
+		$qty = $product->getQtyOrder($_pro_id['pro_id']);
+		if($qty['sum(q)']!=0){
+			$a[]=$qty;
+		}
+	}
+	rsort($a);$i=0;
+	foreach($a as $_a){
+		if($i<4){
+			$b[$_a['product_id']] = $_a['sum(q)'];
+			$i++;
+		} else break;
+	}
+	//var_dump($b);
+?>
+<style>
+.tbl{
+	border: 1px solid #e1e1e1;
+	border-collapse:collapse;
+        width: 100%;
+        margin: 20px auto;
+	color: #3BA2C0;
+}
+.tbl tr{
+	border: 0px;
+	border-collapse:collapse;
+	//padding 2px;
+}
+.tbl td{
+	border: 0px;
+	border-collapse:collapse;
+	padding: 5px;
+}
+.tbl th{
+	border: 0px;
+	border-collapse:collapse;
+}
+</style>
+<table width="200" border="0" class="tbl" >
+		<tr style="background: #3BA2C0;color: #fff">
+			<td colspan="2"><h2>Bestseller Product</h2></td>
+		</tr>
+	<?php foreach($b as $k=>$v): ?>
+		<?php $product = new Frontend_Model_Product();
+		$productInfo = $product->getProductbyId($k);
+		?>
+		<tr>
+			<td><a href="<?php echo $this->baseUrl().'/product/detail/id/'.$k ?>"><img width="50" height="50" src="<?php echo $this->baseUrl().$productInfo['pro_img']; ?>" /></a></td>
+			<td><?php echo $productInfo['pro_name']; ?></td>
+		</tr>
+	
+	<?php endforeach; ?>
+</table>	

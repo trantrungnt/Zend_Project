@@ -1,0 +1,57 @@
+<?php 
+	$data = $this->data;
+?>
+<?php 
+	$full_name = $this->formText('full_name',$data['full_name'],array('style'=>'width: 50%;'));
+	$email = $this->formText('email',$data['email'],array('style'=>'width: 50%;'));
+	$phone = $this->formText('phone',$data['phone'],array('style'=>'width: 50%;'));
+	$address = $this->formTextarea('address',$data['address'],array('rows'=>4,'style'=>'width: 80%;'));
+?>
+
+<div class="box-infor">
+<form name="frmInfor" action="" method="post">                  
+	<div class="cus_info">
+		<h3>Please complete the form.</h3>
+		<label>Full Name</label>
+		<div><?php echo $full_name;?></div>
+		<?php if($this->errn){
+			echo $this->errn;
+		} ?>
+		<label>Email</label>
+		<div><?php echo $email;?></div>
+		<?php if($this->erre){
+			echo $this->erre;
+		} ?>
+		<label>Phone</label>
+		<div><?php echo $phone;?></div>
+		<?php if($this->errp){
+			echo $this->errp;
+		} ?>
+		<label>Address</label>
+		<div><?php echo $address;?></div>
+		<?php if($this->erradd){
+			echo $this->erradd;
+		} ?>
+		</br><br>
+		<input type="checkbox" name="chk" id="infor_chk" value=0> Use this infomation to create account</input>
+		<div id="infor_pass" style="display:none">
+		<label>Password</label>
+		<div><input type='password' name='pass' /></div>
+		<label>Confirm Password</label>
+		<div><input type='password' name='cpass' /></div>
+		</div>
+		<br>
+		<input type="submit" name="update" id="update" value="Next" class="button"> 
+	</div>
+</form>
+<script>
+function countChecked() {
+  var n = $("input:checked").length;
+  if(n==0){
+	$('#infor_pass').hide(1000);
+  } else $('#infor_pass').show(1000);
+}
+$(":checkbox").click(countChecked);
+
+</script>
+</div>

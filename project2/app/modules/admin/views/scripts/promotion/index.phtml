@@ -1,0 +1,41 @@
+<?php 
+$data = $this->data;
+?>
+<div class="list list-index">
+	<form name="frmPromAdm" method="post" enctype="multipart/form-data">
+		<div class="action">
+			<h2 class="title">List Promotion</h2>
+			<div class="add-del">
+				<input class="button" type="button" value="ADD" onclick="onAdd('/admin/promotion/add');" />&nbsp;&nbsp;
+				<input class="button" type="button" value="DELETE" name="delAll" onclick="onDelAll('/admin/promotion/delete/id/');" />
+			</div>
+		</div>
+		<div class="clr"></div>
+		<table width="100%" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>sale off</th>
+                <th>date</th>
+                <th>product name</th>
+				<th colspan="2">Action</th>
+				<th><input type="checkbox" name="chkMasCheck" value="" onclick="onCheckAll();" /></th>
+			</tr>
+			<?php $i=1; foreach($data as $item): ?>
+			<tr>
+				<td style="text-align:center;"><?php echo $item['prom_id']; ?></td>
+				<td><?php echo $item['name']; ?></td>
+				<td><?php echo $item['saleoff']; ?></td>
+                <td><?php echo $item['start_date'].'-'.$item['end_date']; ?></td>
+                <td><?php echo $item['arr_id']; ?></td>
+				<td align="center"><a href="<?php echo $this->baseUrl(); ?>/admin/promotion/edit/id/<?php echo $item['prom_id']; ?>"><img class="change" src="<?php echo $this->baseUrl(); ?>/app/templates/admin/images/edit.png" title="edit" alt="edit" /></a></td>
+				<td align="center"><a href="javascript:void(0);" onclick="onDel('/admin/promotion/delete/id/<?php echo $item['prom_id']; ?>');"><img class="change" src="<?php echo $this->baseUrl(); ?>/app/templates/admin/images/del.png" alt="delete" title="delete" /></a></td>
+				<td align="center"><input type="checkbox" name="chk" value="<?php echo $item['prom_id']; ?>" /></td>
+			</tr>
+			<?php $i++; endforeach; ?>
+		</table>
+	</form>
+	<div class="paginator">                        
+		<?php echo  $this->paginationControl($this->data, 'Jumping', 'promotion/paging.phtml'); ?>
+	</div>
+</div>

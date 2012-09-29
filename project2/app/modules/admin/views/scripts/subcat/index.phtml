@@ -1,0 +1,48 @@
+<?php 
+$cats = $this->cat;
+$data = $this->data;
+?>
+<div class="list list-index">
+	<form name="frmCatAdm" method="post" enctype="multipart/form-data">
+		<div class="action">
+			<h2 class="title">List Subcategory</h2>
+			<div class="add-del">
+				<input class="button" type="button" value="ADD" onclick="onAdd('/admin/subcat/add');" />&nbsp;&nbsp;
+				<input class="button" type="button" value="DELETE" name="delAll" onclick="onDelAll('/admin/subcat/delete/id/');" />
+			</div>
+		</div>
+		<div class="clr"></div>
+		<table width="90%" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<th>ID</th>
+				<th>Cat name</th>
+				<th>Subcat name</th>
+				<th>Url key</th>
+				<th>Description</th>
+				<th colspan="2">Action</th>
+				<th><input type="checkbox" name="chkMasCheck" value="" onclick="onCheckAll();" /></th>
+			</tr>
+			<?php $i=1; foreach($data as $item): ?>
+			<tr>
+				<td style="text-align:center;"><?php echo $item['subcat_id']; ?></td>
+				<td>
+					<?php foreach($cats as $cat): ?>
+					<?php if($item['cat_id']==$cat['cat_id']): ?>
+					<?php echo $cat['cat_name']; ?>
+					<?php endif; ?>
+					<?php endforeach; ?>
+				</td>
+				<td><?php echo $item['subcat_name']; ?></td>
+				<td><?php echo $item['url']; ?></td>
+				<td><?php echo $item['subcat_des']; ?></td>
+				<td align="center"><a href="<?php echo $this->baseUrl(); ?>/admin/subcat/edit/id/<?php echo $item['subcat_id']; ?>"><img class="change" src="<?php echo $this->baseUrl(); ?>/app/templates/admin/images/edit.png" title="edit" alt="edit" /></a></td>
+				<td align="center"><a href="javascript:void(0);" onclick="onDel('/admin/subcat/delete/id/<?php echo $item['subcat_id']; ?>');"><img class="change" src="<?php echo $this->baseUrl(); ?>/app/templates/admin/images/del.png" alt="delete" title="delete" /></a></td>
+				<td align="center"><input type="checkbox" name="chk" value="<?php echo $item['subcat_id']; ?>" /></td>
+			</tr>
+			<?php $i++; endforeach; ?>
+		</table>
+	</form>
+	<div class="paginator">                        
+		<?php echo  $this->paginationControl($this->data, 'Jumping', 'subcat/paging.phtml'); ?>
+	</div>
+</div>

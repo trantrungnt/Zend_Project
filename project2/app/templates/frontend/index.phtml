@@ -1,0 +1,76 @@
+﻿<?php echo $this->doctype(); ?>
+
+<html xmlns = "http://www.w3.org/1999/xhtml"> 
+<head>
+	<?php echo $this->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8'); ?> 
+    <?php echo $this->headTitle('Fashion for you'); ?> 
+	<?php echo $this->headLink()->appendStylesheet($this->baseUrl().'/app/templates/frontend/css/style.css'); ?>
+	<?php echo $this->headLink()->appendStylesheet($this->baseUrl().'/app/templates/frontend/css/style1.css'); ?>
+	<script src="<?php echo $this->baseUrl()?>/app/templates/frontend/js/jquery-1.7.1.js"></script>
+	<script src="<?php echo $this->baseUrl()?>/app/templates/frontend/js/jquery.cycle.all.js"></script>
+	<script src="<?php echo $this->baseUrl()?>/app/templates/frontend/js/f4u.js"></script>
+	<script>
+		function baseUrl(){
+			return '<?php echo $this->baseUrl(); ?>';
+		}
+	</script>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="header">
+			<?php echo $this->action('header','index','frontend'); ?>
+		</div>
+		<div class="clr"></div>
+		<div class="main-contain">
+			<div class="main-left"><?php echo $this->action('slide','index','frontend'); ?><?php echo $this->layout()->content; ?></div>
+			<div class="main-right">
+				<div class="box-cart">
+					<div id="cart-detail" class="cart-detail">
+						<?php echo $this->partial('cart/cartblock.phtml'); ?>
+					</div>
+					<div id="bestseller" class="bestseller">
+						<?php echo $this->partial('product/bestseller.phtml'); ?>
+					</div>
+				</div>
+				
+			</div>
+			<div style="margin:5px; width: 300px; float:right"><a href="http://www.steelcase.com/en/products/surfaces/pages/select-surfaces-overview.aspx" target="_blank"><img src="<?php echo  $this->baseUrl().'/app/templates/frontend/images/select-small-banner.png' ?>" /></a></div>
+			
+			<div style="margin:5px; width: 300px; float:right"><a href="http://vnzenfashion.com/" target="_blank"><img src="<?php echo  $this->baseUrl().'/app/templates/frontend/images/lacoste.jpg' ?>" /></a></div>
+			
+			<div style="margin:5px; width: 300px; float:right"><a href="http://www.golfandlife.com.vn/" target="_blank"><img src="<?php echo  $this->baseUrl().'/app/templates/frontend/images/per.png' ?>" /></a></div>
+		</div>
+		<div class="clr"></div>
+		<div class="footer">
+			<div class="copy-right">
+				<div class="addthis_toolbox addthis_default_style addthis_16x16_style" style="padding-bottom:15px;margin-left:90px">
+					<a class="addthis_button_preferred_1"></a>
+					<a class="addthis_button_preferred_2"></a>
+					<a class="addthis_button_preferred_3"></a>
+					<a class="addthis_button_preferred_4"></a>
+					<a class="addthis_button_compact"></a>
+					<a class="addthis_counter addthis_bubble_style"></a>
+				</div>
+			&copy; Copyright <span><a href="">Fashion for you</a></span><br /> Code by &nbsp;&nbsp;<span style="">team P1101K</span>&nbsp;&nbsp; in  2011-2012
+				
+			</div>
+			<!-- AddThis Button BEGIN -->
+			
+			<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4f33de94303c7dc6"></script>
+			<!-- AddThis Button END -->
+			<div class="foot_link">
+				<ul>
+					<li><a href="<?php echo $this->baseUrl(); ?>">HOME</a></li>
+					<li><a href="">ABOUT US</a></li>
+					<li><a href="#">CONTACT US</a></li>
+					<li><a href="#">TRACK ORDER</a></li>
+					<li><a href="#">PRESS</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+</html>  
+<style>
+
+</style>

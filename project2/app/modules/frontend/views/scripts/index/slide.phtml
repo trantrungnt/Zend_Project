@@ -1,0 +1,52 @@
+﻿<?php
+	$products = $this->product;
+	$urldetail = $this->baseUrl().'/product/detail/id/';
+?>
+<!-- slide show -->
+<script>
+$(document).ready(function(){
+    $('#slidecycle')
+	.before('<div id="nav" class="nav-slide">')
+	.cycle({
+        fx:      'fade',
+        timeout:  0,
+        prev:    '#prev',
+        next:    '#next',
+        pager:   '#nav',
+		width:   700,
+		random:	 0,
+		speedIn: 1600,
+		speedOut: 1600,
+		timeout: 6000, 
+        pause:	true 
+    });    
+});
+</script>
+<div class="top-header">
+	<div class="action-slide">
+		<a id="prev" class="pre-slide" href="#"></a> 
+		<a id="next" class="next-slide" href="#"></a>
+	</div>
+	<div id="slidecycle" class="slidecycle" style="width:700px">
+		<?php foreach($products as $product): ?>
+		<div class="slideshow">
+			<div class="saleoff"><label class="number-saleoff"><?php echo '-'.$product['saleoff'].'%'; ?></label></div>
+			<div class="img-slide">
+				<a href="<?php echo $urldetail.$product['pro_id']; ?>"><img src="<?php echo $this->baseUrl().$product['pro_img'];?>" /></a>
+			</div>
+			<div class="info-slide">
+				<h2 class="name"><a href="<?php echo $urldetail.$product['pro_id']; ?>"><?php echo $product['pro_name']; ?></a></h2>
+				<div class="price">
+					<span class="oldprice"><?php echo $product['pro_price'].'.000vnd' ?></span><br/>
+					giá đặc biệt:
+					<span class="newprice"><?php echo  ($product['pro_price']*(100-$product['saleoff']))/100;?>.000vnd</span>
+				</div>
+				<div class="action">
+					<button class="button" type="button" onclick="window.location = '<?php echo $this->baseUrl().'/cart/additem/id/'.$product['pro_id'] ?>'"><span>Mua ngay nào</span></button>
+				</div>
+				<div class="des"><?php echo substr($product['pro_des'],0,300).'...'; ?></div>
+			</div>
+		</div>
+		<?php endforeach; ?>
+	</div>
+</div>
